@@ -1,0 +1,73 @@
+<html>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link href='https://fonts.googleapis.com/css?family=Raleway:600,900,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+	<title></title>
+	<style type="text/css">
+	body
+	{ 
+	  background: url({{url_for('static',filename='index.jpg')}}) no-repeat center center fixed; 
+	  background-size: 200vw 200vh;
+	  margin: 1px;
+	  padding: 0px;
+	  font-family: 'Raleway', sans-serif;
+	  background-color: lightblue;
+	}
+	.wrapper
+	{
+		width: 100%;
+		height: 100%;
+		padding:215px 0px;
+	}
+	.heading
+	{
+		width: 100%;
+		height: 100%;
+		padding:10px;
+		background-color: lightblue;
+		margin: 0px auto;
+		text-align: center;
+		color:black;
+		font-weight: bold;
+		font-size: 40px;
+		overflow: auto;
+	}
+	.heading p
+	{
+		margin-top: 30px;
+		
+	}
+	.btn
+	{
+		width: 250px;
+		height: 45px;
+		padding:10px;
+		color: white;
+		background-color: #008057;
+		border: 1px solid black;
+		border-radius: 6px;
+		margin-top: 5px;
+		font-weight: bold;
+	}
+
+	</style>
+</head>
+<body> 
+	<div class="wrapper">
+		<div class="heading">
+			<p><i> WELCOME TO TWITTER SENTIMENT ANALYSIS</i><p>
+			<a href="{{url_for('search')}}" text-decoration="none" ><button class="btn btn-lg">START YOUR ANALYSIS</button></a>
+		</div>		
+		<div class="heading">
+			<p><i> OFFLINE TWITTER SENTIMENT ANALYSIS</i><p>
+			<a href="{{url_for('offline')}}" text-decoration="none" ><button class="btn btn-lg">START OFFLINE ANALYSIS</button></a>
+		</div>
+		<div class="heading">
+			<p><i> TEST TWITTER SENTIMENT ANALYSIS</i><p>
+			<a href="{{url_for('test')}}" text-decoration="none" ><button class="btn btn-lg">START TESTING ANALYSIS</button></a>
+		</div>
+	</div>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<style type="text/css">
+	*
+	{
+		margin: 0px auto;
+		padding:0px;
+	}
+	.wrapper
+	{
+		background: url({{url_for('static',filename='index.jpg')}}) no-repeat center center fixed;
+		  background-size: 100vw 100vh;
+		overflow: auto;
+		background-repeat: none;
+
+	}
+	.main
+	{
+		width: 90%;
+		
+		border: 5px solid black;
+		background-color:rgba(255,255,255,0.88);
+		margin: 40px auto;
+		padding: 10px;
+		padding-bottom: 30px;
+		
+	}
+	.heading
+	{
+		margin-top: 20px;
+		color: green;
+		font-weight: bold;
+		font-size: 20px;
+		text-align: center;
+		font-size: 42px;
+	}
+	.positive,.negative,.neutral
+	{
+		width: 80%;
+		overflow: auto;
+		padding: 5px;
+		border: 2px solid black;
+		margin-bottom: 5px;
+		border-radius: 5px;
+	}
+	.negative
+	{
+		background-color: rgba(255,0,0,0.48);
+	}
+	.positive
+	{
+		background-color: rgba(23,162,31,0.48);
+	}
+	.neutral
+	{
+		background-color: rgba(53,208,227,0.48);
+
+	}
+	.positive_tweet{
+		font-weight: bolder;background-color: green;color:white;
+	}
+	.negative_tweet{
+		font-weight: bolder;background-color: red;color:white;
+	}
+	.neutral_tweet{
+		font-weight: bolder;background-color: navy;color:white;
+	}
+	.confusion-matrix table{
+		height: 300px;
+		width: 300px;
+		margin: auto;
+		padding: 10px
+		font-weight: bold;
+		font-size: 20px;
+		background-color: rgba(23,162,31,0.48);
+		color:white;
+	}
+	</style>
+
+  </head>
+  <body>
+	<div class="wrapper">
+		<div class="main">
+			<p class="heading"><span>Sentiment analysis</span></p>
+		    <div id="piechart" style="width: 900px; height: 500px; margin:38px 246px 0px 269px;"></div>
+		</div>
+		<div class="positive"><span class="positive_tweet">Number of Positive Tweets:</span> <span class="positive_tweet">{{count[0]}}</span></div>
+		<div class="negative"><span class="negative_tweet">Number of Negative Tweets:</span> <span class="negative_tweet">{{count[1]}}</span></div>
+		<div class="neutral"><span class="neutral_tweet">Number of Neutral Tweets:</span> <span class="neutral_tweet">{{count[2]}}</span></div>
+		{% if(result) %}
+		<div class="positive"><span class="positive_tweet">Accuracy:</span> <span class="positive_tweet">{{result[0]*100}}%</span></div>
+		<div class="positive"><span class="positive_tweet">Precision:</span> <span class="positive_tweet">{{result[1]}}</span></div>
+		<div class="positive"><span class="positive_tweet">Recall:</span> <span class="positive_tweet">{{result[2]}}</span></div>
+		<div class="positive"><span class="positive_tweet">F-score:</span> <span class="positive_tweet">{{result[3]}}</span></div>
+		{% endif %}
+		{% if(data) %}
+		<div class="confusion-matrix">
+			<table border="1" cellspacing="0">
+				<tr>
+					<th class="neutral" style="width:50px;">Label</th>
+					<th colspan="3" class="neutral" >Confusion Matrix</th>
+				</tr>
+				<tr>
+					<th class="positive" style="width:50px;">Positive</th>
+					{% for x in range(3) %}
+					<th>
+						{{data[x]}}
+					</th>
+					{% endfor %}
+				</tr>
+				<tr>
+					<th class="negative" style="width:50px;">Negative</th>
+					{% for x in range(3,6) %}
+					<th>
+						{{data[x]}}
+					</th>
+					{% endfor %}
+				</tr>
+				<tr>
+					<th class="neutral" style="width:50px;">Neutral</th>
+					{% for x in range(6,9) %}
+					<th>
+						{{data[x]}}
+					</th>
+					{% endfor %}
+				</tr>
+			</table>
+		</div>
+		{% endif %}
+	</div>
+	    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Sentiments', 'Count'],
+          ['Positive',     {{count[0]}} ],
+          ['Negative',      {{count[1]}} ],
+          ['Neutral',  {{count[2]}} ],
+        ]);
+
+        var options = {
+          	title: 'Twitter Sentiment Analysis',
+			colors: ['#17A21F', '#F70C0C', '#35D0E3'],
+			is3D: true,
+			backgroundColor: { fill:'transparent' },
+
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+      drawChart();
+    </script>
+  </body>
+</html>
